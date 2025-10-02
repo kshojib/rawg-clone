@@ -1,20 +1,17 @@
 import { fetchGames, fetchGenres } from "@/lib/api";
 import Sidebar from "@/components/Sidebar";
-import ApiKeyMissing from "@/components/ApiKeyMissing";
 import GamesList from "@/components/GamesList";
+import ApiKeyMissing from "@/components/ApiKeyMissing";
 
-interface HomeProps {
+interface ReviewsPageProps {
   searchParams: Promise<{
     page?: string;
     genres?: string;
     platforms?: string;
-    ordering?: string;
-    dates?: string;
-    search?: string;
   }>;
 }
 
-export default async function Home({ searchParams }: HomeProps) {
+export default async function ReviewsPage({ searchParams }: ReviewsPageProps) {
   const params = await searchParams;
   const page = parseInt(params.page || "1");
 
@@ -29,16 +26,14 @@ export default async function Home({ searchParams }: HomeProps) {
   }
 
   try {
-    // Fetch games and genres in parallel
+    // Fetch games ordered by rating (top rated) and genres in parallel
     const [gamesData, genresData] = await Promise.all([
       fetchGames({
         page,
         page_size: 24,
+        ordering: "-rating",
         genres: params.genres,
         platforms: params.platforms,
-        ordering: params.ordering,
-        dates: params.dates,
-        search: params.search,
       }),
       fetchGenres(),
     ]);
@@ -49,15 +44,13 @@ export default async function Home({ searchParams }: HomeProps) {
 
         <main className="flex-1 px-6 py-10 lg:px-12 lg:py-12">
           <div className="max-w-[1600px] mx-auto">
-            {/* Hero Section */}
+            {/* Header Section */}
             <section className="mb-10">
-              <h1 className="text-5xl font-bold mb-3 tracking-tight">
-                {params.search
-                  ? `Search results for "${params.search}"`
-                  : "New and trending"}
+              <h1 className="text-5xl font-bold mb-3 tracking-tight text-white">
+                Top Rated Games
               </h1>
               <p className="text-gray-400 text-base">
-                Based on player counts and release dates
+                Discover the highest rated games based on player reviews
               </p>
             </section>
 
@@ -69,9 +62,7 @@ export default async function Home({ searchParams }: HomeProps) {
               searchParams={{
                 genres: params.genres,
                 platforms: params.platforms,
-                ordering: params.ordering,
-                dates: params.dates,
-                search: params.search,
+                ordering: "-rating",
               }}
             />
           </div>
