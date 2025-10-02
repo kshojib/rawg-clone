@@ -2,6 +2,10 @@
 
 A modern, responsive video game discovery platform built with **Next.js 15**, **TypeScript**, and **Tailwind CSS**. This project replicates the core features of RAWG.io, allowing users to browse, search, and discover games from a database of 850,000+ titles.
 
+## 🌐 Live Demo
+
+**[View Live Site](https://rawg-clone-drab.vercel.app/)**
+
 ![RAWG Clone](https://img.shields.io/badge/Next.js-15-black?style=for-the-badge&logo=next.js)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?style=for-the-badge&logo=typescript)
 ![Tailwind CSS](https://img.shields.io/badge/Tailwind-4-38bdf8?style=for-the-badge&logo=tailwind-css)
